@@ -5,14 +5,9 @@ import 'package:todo_app/provider/todo_provider.dart';
 import 'package:todo_app/widget/add_task_widget.dart';
 import 'package:todo_app/widget/todo_list.dart';
 
-class TodoScreen extends StatefulWidget {
+class TodoScreen extends StatelessWidget {
   const TodoScreen({super.key});
 
-  @override
-  State<TodoScreen> createState() => _TodoScreenState();
-}
-
-class _TodoScreenState extends State<TodoScreen> {
   @override
   Widget build(context) {
     return Scaffold(
@@ -33,7 +28,12 @@ class _TodoScreenState extends State<TodoScreen> {
       body: Consumer<TodoProvider>(
         builder:
             (BuildContext context, TodoProvider todoProvider, Widget? child) {
-              return Column(children: [AddTaskWidget(todoProvider: todoProvider), TodoList(todoProvider: todoProvider,)]);
+              return Column(
+                children: [
+                  AddTaskWidget(todoProvider: todoProvider),
+                  TodoList(todoProvider: todoProvider),
+                ],
+              );
             },
       ),
     );
