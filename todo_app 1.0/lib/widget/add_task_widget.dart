@@ -37,10 +37,10 @@ class _AddTaskWidgetState extends State<AddTaskWidget> {
                   height: 50.0,
                   child: TextField(
                     controller: _todoController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "Add your task",
                       hintStyle: TextStyle(
-                        color: const Color.fromARGB(255, 116, 115, 115),
+                        color: Color.fromARGB(255, 116, 115, 115),
                       ),
                       border: InputBorder.none,
                       focusedBorder: InputBorder.none,
@@ -49,7 +49,7 @@ class _AddTaskWidgetState extends State<AddTaskWidget> {
                       disabledBorder: InputBorder.none,
                     ),
 
-                    style: TextStyle(color: Colors.black, fontSize: 20.0),
+                    style:const  TextStyle(color: Colors.black, fontSize: 20.0),
                     cursorColor: Colors.black,
                     onSubmitted: (value) {
                       widget.todoProvider.addTask(
