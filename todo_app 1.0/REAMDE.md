@@ -4,3 +4,4 @@ features:
 3) Return todo from deleting
 4) Mark todo as done
 5) Unmark todo as done
+6) Edit todo after creating
