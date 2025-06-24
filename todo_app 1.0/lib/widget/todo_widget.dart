@@ -14,6 +14,14 @@ class TodoWidget extends StatefulWidget {
 }
 
 class _TaskWidgetState extends State<TodoWidget> {
+  final TextEditingController _changeTodoController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _changeTodoController.dispose();
+  }
+
   void showBottomDeleteInfo(Todo todo) {
     ScaffoldMessenger.of(context).clearSnackBars();
 
@@ -24,13 +32,50 @@ class _TaskWidgetState extends State<TodoWidget> {
         action: SnackBarAction(
           label: "return",
           onPressed: () {
-            widget.todoProvider.returnTodo(
-              todo: todo,
-              insertIndex: todoIndex,
-            );
+            widget.todoProvider.returnTodo(todo: todo, insertIndex: todoIndex);
           },
         ),
       ),
+    );
+  }
+
+  void showChangeDialog({required String todoText}) {
+    _changeTodoController.text = todoText;
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Change Todo'),
+          content: TextField(
+            controller: _changeTodoController,
+            decoration: InputDecoration(hintText: ""),
+          ),
+          actions: <Widget>[
+            MaterialButton(
+              color: Colors.red,
+              textColor: Colors.white,
+              child: const Text('CANCEL'),
+              onPressed: () {
+                setState(() {
+                  Navigator.pop(context);
+                });
+              },
+            ),
+            MaterialButton(
+              color: Colors.green,
+              textColor: Colors.white,
+              child: Text('CHANGE'),
+              onPressed: () {
+                widget.todoProvider.changeTodo(
+                  todo: widget.todo,
+                  newTodoText: _changeTodoController.text,
+                );
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -88,6 +133,14 @@ class _TaskWidgetState extends State<TodoWidget> {
                       ),
 
                       const Spacer(),
+
+                      IconButton(
+                        onPressed: () {
+                          // function to change text called inside of showChangeDialog(), in CANCEL button
+                          showChangeDialog(todoText: widget.todo.todoText);
+                        },
+                        icon: Icon(Icons.edit, color: Colors.black),
+                      ),
 
                       IconButton(
                         onPressed: () {
