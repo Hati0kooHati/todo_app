@@ -37,4 +37,9 @@ class TodoProvider extends ChangeNotifier {
     todoList.insert(insertIndex, todo);
     notifyListeners();
   }
+
+  void changeTodo({required Todo todo, required newTodoText}) {
+    todoList[todoList.indexOf(todo)].todoText = newTodoText;
+    notifyListeners();
+  }
 }
