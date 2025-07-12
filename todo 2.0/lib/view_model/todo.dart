@@ -4,7 +4,7 @@ import 'package:todo_app/providers/todo.dart';
 
 import 'package:flutter/material.dart';
 
-class TodoViewModel extends ChangeNotifier {
+class TodoViewModel {
   final WidgetRef ref;
 
   TodoViewModel(this.ref) {
